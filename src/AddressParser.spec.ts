@@ -24,6 +24,7 @@ describe('AddressParser', () => {
           '',
           '7',
           '13',
+          '7 a',
         ])('housenumber: "%s"', housenumber => {
             it('should split street and housenumber into a tuple', () => {
               const streetAndHousenumber = `${street} ${housenumber}`
