@@ -11,5 +11,19 @@ describe('AddressParser', () => {
       expect(tuple[0]).toBeTypeOf('string')
       expect(tuple[1]).toBeTypeOf('string')
     })
+
+    describe.each([
+      'Nagelsweg',
+    ])('street: "%s"', street => {
+        describe.each([
+          '',
+        ])('housenumber: "%s"', housenumber => {
+            it('should split street and housenumber into a tuple', () => {
+              const streetAndHousenumber = `${street} ${housenumber}`
+              expect(addressParser.splitStreetAndHousenumber(streetAndHousenumber))
+                .toEqual([street, housenumber])
+            })
+          })
+      })
   })
 })

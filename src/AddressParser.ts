@@ -1,5 +1,6 @@
 export class AddressParser {
   splitStreetAndHousenumber(streetAndHousenumber: string) {
-    return ["", ""]
+    const trimmedLine = streetAndHousenumber.trim()
+    return [trimmedLine, '']
   }
 }
