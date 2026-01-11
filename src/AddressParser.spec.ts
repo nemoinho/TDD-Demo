@@ -63,5 +63,29 @@ describe('AddressParser', () => {
         })
       })
     })
+
+    describe('new unnamed streets', () => {
+      describe.each(['Straße 1', 'Straße 22'])('street: "%s"', street => {
+        const newStreetHousenumbers = housenumbers
+          // We want to ignore empty housenumbers to avoid cases like "Straße 4 Nr. "
+          // These would be strictly invalid!
+          .filter(housenumber => !!housenumber)
+          .map(housenumber => `Nr. ${housenumber}`)
+        describe.each(newStreetHousenumbers)('housenumber: "%s"', housenumber => {
+          it('should split street and housenumber into a tuple', () => {
+            const streetAndHousenumber = `${street} ${housenumber}`
+            expect(addressParser.splitStreetAndHousenumber(streetAndHousenumber))
+              .toEqual([street, housenumber])
+          })
+        })
+
+        describe("absent housenumber", () => {
+          it('should split street into a tuple without housenumber', () => {
+            expect(addressParser.splitStreetAndHousenumber(street))
+              .toEqual([street, ''])
+          })
+        })
+      })
+    })
   })
 })
