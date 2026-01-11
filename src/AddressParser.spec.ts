@@ -30,6 +30,7 @@ describe('AddressParser', () => {
           '7 / 8',
           '7 A - 13 b',
           '7 a / 8 b',
+          '17 1/2', // <-- special case in cologne
         ])('housenumber: "%s"', housenumber => {
             it('should split street and housenumber into a tuple', () => {
               const streetAndHousenumber = `${street} ${housenumber}`
