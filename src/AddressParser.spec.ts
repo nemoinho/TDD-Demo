@@ -23,8 +23,7 @@ describe('AddressParser', () => {
       '7 / 8',
       '7 A - 13 b',
       '7 a / 8 b',
-      '17 1/2', // special case in cologne
-      '7 // App. 3' // special case of apartments and similar
+      '7 // App. 3',
     ]
 
     it('should provide a tuple of street and housenumber', () => {
@@ -52,6 +51,15 @@ describe('AddressParser', () => {
             expect(addressParser.splitStreetAndHousenumber(blockAndHousenumber))
               .toEqual([block, housenumber])
           })
+        })
+      })
+    })
+
+    describe('halfed housenumber in Cologne', () => {
+      describe.each(streets)('block: "%s"', street => {
+        it('should split street and halfed housenumber into a tuple', () => {
+          expect(addressParser.splitStreetAndHousenumber(`${street} 17 1/2`))
+            .toEqual([street, '17 1/2'])
         })
       })
     })
