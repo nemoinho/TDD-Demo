@@ -19,6 +19,7 @@ describe('AddressParser', () => {
       'Nagelsweg',
       'Brücke des 17. Juni',
       '1. Hafenstraße',
+      'D4', // Special case "Quadratestadt"
     ])('street: "%s"', street => {
         describe.each([
           '',
