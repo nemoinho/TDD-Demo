@@ -17,6 +17,8 @@ describe('AddressParser', () => {
     ])('street: "%s"', street => {
         describe.each([
           '',
+          '7',
+          '13',
         ])('housenumber: "%s"', housenumber => {
             it('should split street and housenumber into a tuple', () => {
               const streetAndHousenumber = `${street} ${housenumber}`
