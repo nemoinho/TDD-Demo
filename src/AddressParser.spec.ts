@@ -13,7 +13,12 @@ describe('AddressParser', () => {
     })
 
     describe.each([
+      'Am Kaiserkai',
+      'Güntherstraße',
+      'Clemens-Schultz-Str.',
       'Nagelsweg',
+      'Brücke des 17. Juni',
+      '1. Hafenstraße',
     ])('street: "%s"', street => {
         describe.each([
           '',
