@@ -1,0 +1,12 @@
+{
+  "name": "tdd-demo",
+  "version": "1.0.0",
+  "description": "A demonstration of TDD by implementing a parser for german street-housenumber lines",
+  "license": "MIT",
+  "author": "Felix Nehrke",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
