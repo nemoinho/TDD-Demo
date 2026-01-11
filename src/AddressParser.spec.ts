@@ -19,11 +19,17 @@ describe('AddressParser', () => {
       '13',
       '7 a',
       '7 B',
+      '7a',
       '7 - 13',
+      '7-13',
       '7 / 8',
       '7 A - 13 b',
       '7 a / 8 b',
+      '7A - 13 b',
+      '7a / 8b',
+      '7 a / 8b',
       '7 // App. 3',
+      '7//App. 3',
     ]
 
     it('should provide a tuple of street and housenumber', () => {
