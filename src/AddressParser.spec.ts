@@ -12,7 +12,6 @@ describe('AddressParser', () => {
       'Nagelsweg',
       'Brücke des 17. Juni',
       '1. Hafenstraße',
-      'D4', // Special case "Quadratestadt"
     ]
     const housenumbers = [
       '',
@@ -41,6 +40,18 @@ describe('AddressParser', () => {
           const streetAndHousenumber = `${street} ${housenumber}`
           expect(addressParser.splitStreetAndHousenumber(streetAndHousenumber))
             .toEqual([street, housenumber])
+        })
+      })
+    })
+
+    describe('Quadtratestadt in Mannheim', () => {
+      describe.each(['D4', 'C11'])('block: "%s"', block => {
+        describe.each(['5', '23'])('housenumber: "%s"', housenumber => {
+          it('should split block and housenumber into a tuple', () => {
+            const blockAndHousenumber = `${block} ${housenumber}`
+            expect(addressParser.splitStreetAndHousenumber(blockAndHousenumber))
+              .toEqual([block, housenumber])
+          })
         })
       })
     })
