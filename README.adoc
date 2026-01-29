@@ -3,29 +3,28 @@
 
 This project is meant as a Demonstration for TDD.
 
-Since we need anything to implement I choose a parser for German street and housenumber lines.
-This is surprisingly complicated but, still a scoped topic and can easily be verified.
+Since we need something to implement, I chose a parser for German street and house number lines.
+This is surprisingly complicated but still a scoped topic and can easily be verified.
 
-As typical for Germany we have a Standard for Addresses, the DIN 5008.
-This norm cares about everything involved in business-communication, e.g. letter-formatting, abbreviations and more.
-Importantly for us it also defines a standardized address for letters.
+As is typical for Germany, there is a standard for addresses: DIN 5008.
+This norm covers everything involved in business communication, e.g. letter formatting, abbreviations, and more.
+Importantly for us, it also defines a standardized address format for letters.
 
 == Task
-Write a parser which splits the line of street and housenumber into a tuple of street and housenumber.
-Furthermore, if no housenumber is given, then just return an empty string for the housenumber.
+Write a parser which splits the line of street and house number into a tuple of street and house number.
+Furthermore, if no house number is given, then just return an empty string for the house number.
 
 .Pseudocode example
 [source]
---
-result := split_street_and_housenumber "Holzweg 12"
+
+result := split_street_and_house_number "Holzweg 12"
 assert result == ["Holzweg", "12"]
 
-result := split_street_and_housenumber "Holzweg"
+result := split_street_and_house_number "Holzweg"
 assert result == ["Holzweg", ""]
---
 
 [NOTE]
-In this demonstration we're going to use typescript for the example implemention.
+In this demonstration we're going to use TypeScript for the example implementation.
 
 == Address according to DIN 5008
 
@@ -33,24 +32,24 @@ In this demonstration we're going to use typescript for the example implemention
 ....
 Max Mustermann <1>
 Schulweg 12 <2>
-49084 Musterstandt <3>
+49084 Musterstadt <3>
 ....
 
 <1> Name or Company
-<2> Street _and_ housenumber
-<3> Postalcode and City / Place
+<2> Street and house number
+<3> Postal code and City / Place
 
 The standard defines even more lines and also some rules for each line.
-For example the City or Place is required in some cases, since the Postalcode may cover two streets of the same name.
+For example the City or Place is required in some cases, since the Postal code may cover two streets of the same name.
 
-But, the important part for us is the line containing the street and housenumber.
+But, the important part for us is the line containing the street and house number.
 This line follows a fairly big set of rules as well.
 
-=== Streetnames
+=== Street names
 
-German street names can consists of any kind of latin characters, including the famous "ß" and umlauts, but also of numbers, dashes and spaces.
+German street names can consist of any kind of Latin characters, including the famous "ß" and umlauts, but also of numbers, dashes and spaces.
 
-As a rule of thumb we can assume that a street contains of any charachter, but never ends with a number.
+As a rule of thumb we can assume that a street contains any character, but never ends with a number.
 But, they may end with an abbreviation for "Straße", namely "Str.".
 So, street names in Germany can look like the following, which are actually real street names in Hamburg, Germany.
 
@@ -71,33 +70,33 @@ As an example some streets in Berlin Buchholz are named like this:
 * Straße 17
 
 [IMPORTANT]
-The number at the end of the street name makes it really hard to distinguish between the street name and the housenumber.
-To avoid any confusion in this case these addresses will have a divider in between the streetname and the housenumber, which belongs to neither of them!
-This divider is simply " Nr.", so the street and housenumber will look like "Straße 17 Nr. 5"
+The number at the end of the street name makes it really hard to distinguish between the street name and the house number.
+To avoid any confusion in this case these addresses will have a divider in between the street name and the house number, which belongs to neither of them!
+This divider is simply " Nr.", so the street and house number will look like "Straße 17 Nr. 5"
 
 Finally, the last exception is the Quadratestadt in Mannheim.
 This historic district doesn't have street names in the common sense.
 Instead, the blocks are named by a letter and number combination.
-Since many validation-tools struggle with this it's common to add the prefix "Starße " and split the letter and number.
+Since many validation tools struggle with this it's common to add the prefix "Straße" and split the letter and number.
 
 * D4
 * Straße D4
 * Straße D 4
 
-=== Housenumbers
+=== House numbers
 
-Housenumbers follow a limited set of rules, usually.
+House numbers follow a limited set of rules, usually.
 
-* A housenumber start with a number
-* A housenumber may also contains a letter in any case separated with a space
-* A House can have multiple numbers, these can be expressed using a dash ("-") or slash ("/")
+* A house number starts with a number
+* A house number may also contain a letter in any case separated with a space
+* A house can have multiple numbers, these can be expressed using a dash ("-") or slash ("/")
 ** Examples are: "4 / 6" or "3 a - 8 c"
-* Appartment-numbers or similiar are separated by a double-slash ("//") from the rest of the number 
+* Apartment numbers or similar are separated by a double-slash ("//") from the rest of the number
 ** Examples are: "4 // 7", "4 // App. 7" or "4 // 7 Stock"
 
 [IMPORTANT]
-Beside of that we also have to consider that it's very typical in daily writing to drop sapces.
+Beside of that we also have to consider that it's very typical in daily writing to drop spaces.
 So, instead of "4 A" it's common to write "4a".
 
 But, again no rules without exceptions.
-For historical reasons some housenumbers in Cologne are "halfed", so these housenumbers reads like "12 1/2".
+For historical reasons some house numbers in Cologne are "halved", so these house numbers read like "12 1/2".
