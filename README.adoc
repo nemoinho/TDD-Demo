@@ -16,12 +16,13 @@ Furthermore, if no house number is given, then just return an empty string for t
 
 .Pseudocode example
 [source]
-
+--
 result := split_street_and_house_number "Holzweg 12"
 assert result == ["Holzweg", "12"]
 
 result := split_street_and_house_number "Holzweg"
 assert result == ["Holzweg", ""]
+--
 
 [NOTE]
 In this demonstration we're going to use TypeScript for the example implementation.
